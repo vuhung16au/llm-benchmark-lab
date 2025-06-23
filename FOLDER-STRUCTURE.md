@@ -10,17 +10,23 @@ llm-benchmark-lab/
 ├── .gitignore                                     # Git ignore configuration
 ├── .venv/                                         # Python virtual environment
 ├── __pycache__/                                   # Python bytecode cache
-│   └── benchmark_models.cpython-313.pyc          # Compiled Python bytecode
+│   └── benchmark_models.cpython-313.pyc            # Compiled Python bytecode
 ├── benchmarks/                                    # Model response outputs
-│   ├── response-deepseek-r1-1.5b-*.txt           # DeepSeek R1 1.5B model responses
-│   ├── response-phi3-mini-*.txt                  # Phi3 Mini model responses
-│   └── response-smollm2-1.7b-*.txt               # SmolLM2 1.7B model responses
-├── benchmark_models.py                           # Main benchmarking script
-├── Benchmark-Report-Checkpoint-20250623-1400.md  # Benchmark report checkpoint
-├── FOLDER-STRUCTURE.md                           # This file
-├── LICENSE                                       # Project license
-├── README.md                                     # Project documentation
-└── requirements.txt                              # Python dependencies
+│   ├── response-deepseek-r1-1.5b-*.txt             # DeepSeek R1 1.5B model responses
+│   ├── response-phi3-mini-*.txt                    # Phi3 Mini model responses
+│   └── response-smollm2-1.7b-*.txt                 # SmolLM2 1.7B model responses
+├── benchmark_models/                              # Benchmarking package (modularized)
+│   ├── __init__.py                                # Package marker
+│   ├── main.py                                    # Entrypoint script (run this)
+│   ├── model_benchmark.py                         # ModelBenchmark class (benchmark logic)
+│   ├── system_monitor.py                          # SystemMonitor class (resource monitoring)
+│   ├── token_counter.py                           # TokenCounter class (token counting)
+│   └── test_prompts.py                            # List of test prompts
+├── Benchmark-Report-Checkpoint-20250623-1400.md    # Benchmark report checkpoint
+├── FOLDER-STRUCTURE.md                            # This file
+├── LICENSE                                        # Project license
+├── README.md                                      # Project documentation
+└── requirements.txt                               # Python dependencies
 ```
 
 ## Directory Descriptions
@@ -78,6 +84,17 @@ Current models being benchmarked:
 - `deepseek-r1:1.5b` - DeepSeek R1 1.5B parameter model
 - `phi3:mini` - Microsoft Phi3 Mini model  
 - `smollm2:1.7b` - SmolLM2 1.7B parameter model
+
+### benchmark_models/
+
+| File | Description |
+|------|-------------|
+| `__init__.py` | Package marker for Python imports |
+| `main.py` | Entrypoint script. Run this to start the benchmark |
+| `model_benchmark.py` | Contains the ModelBenchmark class and core benchmarking/report logic |
+| `system_monitor.py` | Contains the SystemMonitor class for resource monitoring |
+| `token_counter.py` | Contains the TokenCounter class for token counting |
+| `test_prompts.py` | Contains the test prompts used for benchmarking |
 
 ## File Naming Conventions
 

@@ -76,38 +76,80 @@ Download more models as needed, but ensure the ones listed above are available f
 
 ---
 
-## 3. Running the Benchmark Script
+## 3. How to Run the Benchmark
 
-Once your environment is set up and models are pulled, run the benchmark script:
+Follow these steps to run the benchmark:
 
-```bash
-python benchmark_models_enhanced.py
-```
+1. **Activate your virtual environment** (if not already active):
+   ```bash
+   source .venv/bin/activate
+   ```
+
+2. **Start the Ollama service** (if not already running):
+   ```bash
+   ollama serve
+   ```
+
+3. **Run the benchmark script** from the project root:
+   ```bash
+   python benchmark_models/main.py
+   # or
+   python -m benchmark_models.main
+   ```
 
 The script will:
-- Benchmark each model on a test prompt
+- Benchmark each model on the test prompt(s) defined in `benchmark_models/test_prompts.py`
 - Measure tokens per second, time to first token, memory, CPU, and GPU usage
-- Save detailed results and a markdown report with a timestamp
-
-Output files will be saved in the current directory and the `benchmarks/` folder.
+- Save detailed results and a markdown report with a timestamp in the `benchmarks/` directory
 
 ---
 
-## 4. Output
+## 4. Code Structure (Modularized)
+
+The benchmarking code is now organized as a Python package for maintainability:
+
+```
+benchmark_models/
+    __init__.py
+    main.py              # Entrypoint script (run this)
+    model_benchmark.py   # ModelBenchmark class (benchmark logic)
+    system_monitor.py    # SystemMonitor class (resource monitoring)
+    token_counter.py     # TokenCounter class (token counting)
+    test_prompts.py      # List of test prompts
+```
+
+- **main.py**: Entrypoint. Run this file to start the benchmark.
+- **model_benchmark.py**: Core benchmarking logic and report generation.
+- **system_monitor.py**: System resource monitoring utilities.
+- **token_counter.py**: Token counting utilities for different models.
+- **test_prompts.py**: Contains the test prompts used for benchmarking.
+
+---
+
+## 5. Extending the Benchmark
+
+To add new models or prompts:
+- Edit `benchmark_models/model_benchmark.py` to add new models to the `self.models` dictionary.
+- Add or modify prompts in `benchmark_models/test_prompts.py`.
+- For new resource or metric logic, extend `system_monitor.py` or `model_benchmark.py` as needed.
+
+---
+
+## 6. Output
 - **Detailed results:** `enhanced_benchmark_results-<timestamp>.json`
 - **Markdown report:** `enhanced_benchmark_report-<timestamp>.md`
 - **Model responses:** Saved in the `benchmarks/` directory
 
 ---
 
-## 5. Troubleshooting
+## 7. Troubleshooting
 - Ensure Ollama is running and all required models are pulled before starting the benchmark.
 - If you encounter missing package errors, double-check your virtual environment and requirements installation.
 - For model-specific issues, verify the model names and tags with `ollama list`.
 
 ---
 
-## 6. How to Add a New Ollama Model
+## 8. How to Add a New Ollama Model
 
 To add a new model to the benchmark (e.g., `deepseek-r1:8b`), follow these steps:
 
@@ -176,14 +218,14 @@ The script will now include `deepseek-r1:8b` in the benchmark results.
 
 ---
 
-## 7. Troubleshooting
+## 9. Troubleshooting
 
 - Ensure Ollama is running and all required models are pulled before starting the benchmark.
 - If you encounter missing package errors, double-check your virtual environment and requirements installation.
 - For model-specific issues, verify the model names and tags with `ollama list`.
 
 
-## 8. Configuration Options
+## 10. Configuration Options
 
 ### Customizing Benchmark Parameters
 
@@ -194,7 +236,7 @@ You can modify the benchmark behavior by editing these parameters in `benchmark_
 - **Resource monitoring interval:** Change the monitoring frequency for CPU/memory/GPU metrics
 - **Timeout settings:** Modify request timeouts for slower models
 
-## 9. Understanding the Results
+## 11. Understanding the Results
 
 ### Key Metrics Explained
 
@@ -211,13 +253,13 @@ You can modify the benchmark behavior by editing these parameters in `benchmark_
 - **Memory efficiency:** Important for resource-constrained environments
 
 
-## 10. Hardware Requirements
+## 12. Hardware Requirements
 
 ### Recommended Setup
 - **GPU:** Apple Silicon, NVIDIA RTX series, or AMD with ROCm support
 - **Storage:** +1GB for the projects and (optional) models
 
-## 11. Contributing
+## 13. Contributing
 
 ### Reporting Issues
 Please include:

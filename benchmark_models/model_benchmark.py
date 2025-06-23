@@ -1,60 +1,11 @@
-import time
-import requests
-import json
-from typing import Dict, List, Optional
-import tiktoken
-from transformers import AutoTokenizer
-import statistics
 import os
+import json
+import time
+import statistics
 from datetime import datetime
-import psutil
-import threading
-import subprocess
-import shutil
-import platform
-
-# Import SystemMonitor from the new module
+from typing import Dict, List
 from benchmark_models.system_monitor import SystemMonitor
 from benchmark_models.token_counter import TokenCounter
-from benchmark_models.model_benchmark import ModelBenchmark
-from benchmark_models.test_prompts import test_prompts
-
-class TokenCounter:
-    def __init__(self):
-        self.tokenizers = {}
-    
-    def get_tiktoken_count(self, text: str, model: str = "gpt-3.5-turbo") -> int:
-        """Count tokens using tiktoken (OpenAI's tokenizer)"""
-        try:
-            encoding = tiktoken.encoding_for_model(model)
-            return len(encoding.encode(text))
-        except:
-            # Fallback to cl100k_base encoding
-            encoding = tiktoken.get_encoding("cl100k_base")
-            return len(encoding.encode(text))
-    
-    def get_hf_tokenizer_count(self, text: str, model_name: str) -> int:
-        """Count tokens using HuggingFace tokenizer"""
-        try:
-            if model_name not in self.tokenizers:
-                self.tokenizers[model_name] = AutoTokenizer.from_pretrained(
-                    model_name, 
-                    trust_remote_code=True
-                )
-            tokenizer = self.tokenizers[model_name]
-            return len(tokenizer.encode(text))
-        except Exception as e:
-            print(f"Could not load tokenizer for {model_name}: {e}")
-            return self._fallback_count(text)
-    
-    def _fallback_count(self, text: str) -> int:
-        """Fallback token counting (words + punctuation)"""
-        import re
-        # More accurate than char/4 - counts words and punctuation separately
-        words = len(re.findall(r'\w+', text))
-        punctuation = len(re.findall(r'[^\w\s]', text))
-        return words + punctuation
-
 
 class ModelBenchmark:
     def __init__(self, base_url: str = "http://localhost:11434"):
@@ -140,6 +91,7 @@ class ModelBenchmark:
         chunk_times = []
         
         try:
+            import requests
             response = requests.post(
                 f"{self.base_url}/api/generate",
                 json={
@@ -444,6 +396,4 @@ class ModelBenchmark:
         if not model_performance:
             print("\nNo successful benchmark results to display.")
         
-        print("\n" + "="*100)
-
-# The script entrypoint has been moved to benchmark_models/main.py
+        print("\n" + "="*100) 
