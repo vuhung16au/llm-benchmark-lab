@@ -1,0 +1,10 @@
+# Token counting libraries for benchmarking
+tiktoken>=0.5.0
+transformers>=4.30.0
+tokenizers>=0.13.0
+torch>=2.0.0
+
+# System monitoring dependencies
+psutil>=5.9.0
+GPUtil>=1.4.0
+
