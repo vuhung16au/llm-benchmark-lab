@@ -1044,13 +1044,13 @@ if __name__ == "__main__":
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     # Save detailed results with timestamp
-    results_filename = f"enhanced_benchmark_results-{timestamp}.json"
+    results_filename = f"benchmarks/enhanced_benchmark_results-{timestamp}.json"
     with open(results_filename, "w") as f:
         json.dump(results, f, indent=2)
     
     # Generate and save report with timestamp
     report = benchmark.generate_report(results)
-    report_filename = f"enhanced_benchmark_report-{timestamp}.md"
+    report_filename = f"benchmarks/enhanced_benchmark_report-{timestamp}.md"
     with open(report_filename, "w") as f:
         f.write(report)
     
