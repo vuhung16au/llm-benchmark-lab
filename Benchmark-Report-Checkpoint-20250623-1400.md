@@ -22,6 +22,18 @@ Notes:
 - `Quality` and `Relevance` are subjective scores from 1 (worst) to 10 (best), based on the response quality and relevance to the prompt, juded by human evaluators.
 - `Size (GB)` is the size of the model in GB (`ollama list` command)
 
+## Models Selections 
+
+We selected some ollama models with number of parameters between 1.5B and 3B, which are small enough and suitable for text summarization tasks. The models were chosen based on their availability in the Ollama repository and their performance characteristics.
+
+## Benchmarking Methodology
+
+The benchmark was conducted using the following steps:
+1. **Environment Setup**: A Python script was used to benchmark the models, measuring tokens per second, time to first token, memory usage, CPU usage, and GPU usage.
+2. **Test Prompt**: A standardized prompt was used to evaluate the models' performance.
+3. **Metrics Collection**: The script collected metrics for each model, including response time, memory usage, and CPU/GPU utilization.
+4. **Human Evaluation**: Responses were evaluated by human judges for quality and relevance, scoring from 1 to 10.
+
 ## Test Environment
 
 Macbbook Pro M1 Max 64GB RAM
